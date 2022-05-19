@@ -33,21 +33,9 @@ public class Day_01 : BaseDay
         int result = 0;
         int prev = -1;
         for(int i = 0; i < _input.Count; i++){
-            int plusOne;
-            int plusTwo;
-            int current = Int32.Parse(_input[i]);
-            try{
-                plusOne = Int32.Parse(_input[i+1]);
-            }
-            catch(Exception){
-                plusOne = 0;
-            }
-            try{
-                plusTwo = Int32.Parse(_input[i+2]);
-            }
-            catch(Exception){
-                plusTwo = 0;
-            }
+            int current = ConvertToInt(i);
+            int plusOne = ConvertToInt(i+1);
+            int plusTwo = ConvertToInt(i+2);
             int cTotal = current + plusOne + plusTwo;
             if(prev == -1){
                 prev = cTotal;
@@ -59,5 +47,14 @@ public class Day_01 : BaseDay
             prev = cTotal;
         }
         return new(result.ToString());
+    }
+    
+    private int ConvertToInt(int num){
+        try{
+            return Int32.Parse(_input[num]);
+        }
+        catch(Exception){
+            return 0;
+        }
     }
 }
