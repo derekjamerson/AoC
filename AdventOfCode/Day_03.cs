@@ -16,9 +16,8 @@ public class Day_03 : BaseDay
         int[] epsilonArray = new int[_input[0].Length];
 
         foreach(string num in _input){
-            char[] places = num.ToCharArray();
-            for(int i = 0; i < places.Length; i++){
-                int place_value = Convert.ToInt32(places[i].ToString());
+            for(int i = 0; i < num.Length; i++){
+                int place_value = Convert.ToInt32(num[i].ToString());
                 if(place_value == 0){
                     frequency[i]--;
                     continue;
