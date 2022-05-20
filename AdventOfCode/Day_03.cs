@@ -42,8 +42,11 @@ public class Day_03 : BaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        int result = 0;
-
+        int[] o2Gen = StringToIntArray(CalcO2GenRating());
+        int[] cO2Scrub = StringToIntArray(CalcCO2ScrubRating());
+        int resultOxygen = BinaryArrayToInt(o2Gen);
+        int resultCO2 = BinaryArrayToInt(cO2Scrub);
+        int result = resultOxygen * resultCO2;
         return new(result.ToString());
     }
 
@@ -57,4 +60,53 @@ public class Day_03 : BaseDay
         return Convert.ToInt32(result);
     }
     
+    private string CalcO2GenRating(){
+        List<string> remaining = _input.ToList();
+        for(int place = 0; place < _input[0].Length; place++){
+            if(remaining.Count() == 1){
+                break;
+            }
+            int frequency = 0;
+            foreach(string option in remaining){
+                if(option[place] == '0'){
+                    frequency--;
+                    continue;
+                }
+                frequency++;
+            }
+            if(frequency >= 0){
+                remaining = remaining.Where(x => x[place] == '0').ToList();
+                continue;
+            }
+            remaining = remaining.Where(x => x[place] == '1').ToList();
+        }
+        return remaining[0];
+    }
+
+    private string CalcCO2ScrubRating(){
+        List<string> remaining = _input.ToList();
+        for(int place = 0; place < _input[0].Length; place++){
+            if(remaining.Count() == 1){
+                break;
+            }
+            int frequency = 0;
+            foreach(string option in remaining){
+                if(option[place] == '0'){
+                    frequency--;
+                    continue;
+                }
+                frequency++;
+            }
+            if(frequency >= 0){
+                remaining = remaining.Where(x => x[place] == '1').ToList();
+                continue;
+            }
+            remaining = remaining.Where(x => x[place] == '0').ToList();
+        }
+        return remaining[0];
+    }
+    private int[] StringToIntArray(string inputString){
+        int[] intArray = inputString.Select(n => Int32.Parse(n.ToString())).ToArray();
+        return intArray;
+    }
 }
